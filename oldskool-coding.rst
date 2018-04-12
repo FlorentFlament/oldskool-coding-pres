@@ -405,23 +405,23 @@ Specifications
      * 8 read registers to read collisions between the 5 objects
        supported by the platform (2 players, 2 missiles, 1 ball and
        the playfield):
-         - CXM0P (read collision D7:M0/P1 D6:M0/P0)
-	 - CXM1P (read collision D7:M1/P0 D6:M1/P1)
-	 - CXP0FB (read collision D7:P0/PF D6:P0/BL)
-	 - CXP1FB (read collision D7:P1/PF D6:P1/BL)
-	 - CXM0FB (read collision D7:M0/PF D6:M0/BL)
-	 - CXM1FB (read collision D7:M1/PF D6:M1/BL)
-	 - CXBLPF (read collision D7:BL/PF D6:unused)
-	 - CXPPMM (read collision D7:P0/P1 D6:M0/M1)
+       - CXM0P (read collision D7:M0/P1 D6:M0/P0)
+       - CXM1P (read collision D7:M1/P0 D6:M1/P1)
+       - CXP0FB (read collision D7:P0/PF D6:P0/BL)
+       - CXP1FB (read collision D7:P1/PF D6:P1/BL)
+       - CXM0FB (read collision D7:M0/PF D6:M0/BL)
+       - CXM1FB (read collision D7:M1/PF D6:M1/BL)
+       - CXBLPF (read collision D7:BL/PF D6:unused)
+       - CXPPMM (read collision D7:P0/P1 D6:M0/M1)
 
      * 6 read registers to get input from the paddles, as well as the
        joysticks' trigger buttons:
-         - INPT0 (read pot port)
-         - INPT1 (read pot port)
-         - INPT2 (read pot port)
-         - INPT3 (read pot port)
-         - INPT4 (read input)
-         - INPT5 (read input)
+       - INPT0 (read pot port)
+       - INPT1 (read pot port)
+       - INPT2 (read pot port)
+       - INPT3 (read pot port)
+       - INPT4 (read input)
+       - INPT5 (read input)
 
    Finally, the Atari 2600/VCS supports ROM cartridges with a capacity
    of 4 KBytes (first cartridgess) to 32 KBytes (using a bank
