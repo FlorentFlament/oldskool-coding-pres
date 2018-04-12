@@ -211,6 +211,59 @@ Community
 Atari 2600/VCS
 ==============
 
+.. note::
+
+   Why I chose to work on the Atari 2600/VCS platform ? I'd say that
+   it's about the challenge of doing something interesting, with the
+   simplest (or at least most basic) existing hardware on earth, that
+   can do graphics and sound.
+
+   To assess the relative complexity of the Atari 2600 platform
+   compared to modern chips, here are some statistics about the
+   datasheet's size of the Atari 2600 versus an 8th generation Intel
+   Core processor and a modern low-end microcontroller.
+
+   * The Atari 2600/VCS specification fits in a 57 pages document
+     called `Stella programmer's guide`_
+
+   * The `8th Generation Intel Core Processor Family datasheet`_ is
+     spread over 3 documents for a total of 681 pages:
+     - platform datasheet vol 1 (155 pages)
+     - platform datasheet vol 2 (488 pages)
+     - spec update (41 pages)
+
+   * The `Atmel ATmega328/P datasheet`_ weights 441 pages. For $2, the
+     microcontroller embeds:
+     - an AVR 8bit CPU running at up to 20 MHz
+     - 32 KBytes of Flash memory
+     - 1 KBytes EEPROM
+     - 2 KByes SRAM
+     - many peripherals including
+       - three timers (two 8-bit and one 16-bit)
+       - a programmable Serial USART interface
+       - an ADC (Analog to Digital converter) and a DAC (Digital to
+         Analog Converter)
+
+   We can also compare the size of the 6502 processor instructions set
+   versus today's high-end CPUs like the x86-64 family and low-end
+   modern CPUs like the 8-bit AVR:
+
+   - The 6502 CPU implements 56 (legal) instructions.
+
+   - The x86-64 ISA (Instruction Set Architecture) counts between 981
+     and 3683 disctinct instructions depending on what we consider a
+     unique instruction (souce: `How Many x86-64 Instructions Are
+     There Anyway`_).
+
+   - The 8-bit AVR counts 142 instructions (again this number can vary
+     depending on how these are counted).
+
+   Be it on the size of its datasheet or its CPU instructions set, the
+   Atari 2600 is much simpler than modern chips. Its datasheet's size
+   is roughly 10 times smaller than modern chips', and it has 3 times
+   less instructions than the 8-bit AVR and 40 times less instruction
+   than x86-64 processors.
+
 Specifications
 --------------
 
@@ -218,10 +271,30 @@ Specifications
 
    The Atari 2600/VCS has been commercialized in 1977, and was shipped
    with a 1 MHz 8bit 6507 CPU from MOS Technology (i.e a 6502 in a
-   smaller package) and two additional chips.
+   smaller package) with the following characteristics:
 
-   The PIA (Peripheral Interface Adaptor) is an off-the-shelf 6532
-   chip providing:
+     * 56 (legal) instructions including ADC (8-bit integer addition
+       with carry) and SBC (8-bit integer substraction with
+       carry). The CPU doesn't support multiplications nor
+       divisions. And floating point arithmetic is not supported
+       neither.
+
+     * The CPU provides five 8-bit registers and a 16-bit program
+       counter:
+       - A (The accumulator is used for arithmetic and logic
+            operations)
+       - X and Y (The index registers allow accessing data using a
+                  base address and an offset).
+       - P (The processor status flags, providing information about
+            the last instructions executed, like whether there was a
+            carry, if the last number manipulated was zero, ...)
+       - S (The stack pointer is an index that points to the next
+            empty slot available in the stack).
+       - PC (The 16-bit program counter, which points towards the next
+             instruction to be executed).
+
+   It embeds two additional chips. The PIA (Peripheral Interface
+   Adaptor) is an off-the-shelf 6532 chip providing:
 
      * 128 bytes of RAM.
 
@@ -252,7 +325,7 @@ Specifications
          associated to the direction of player 1. This port can also
          be used to read paddle triggers.
 
-   The Atari 2600 also embedded a custom integrated circuit, the TIA
+   The Atari 2600 also embeds a custom integrated circuit, the TIA
    (Television Interface Adaptor), responsible for displaying the TV
    picture and playing the sound, by exposing:
 
@@ -354,6 +427,9 @@ Specifications
    of 4 KBytes (first cartridgess) to 32 KBytes (using a bank
    switching trick).
 
+   The `Stella Programmer's guide`_ (by Steve Wright - 1979) provides
+   all the information required to program the platform.
+
 Graphics coding
 ---------------
 
@@ -381,3 +457,7 @@ Atari VCS demos
 ===============
 
 .. _Crinkler: http://crinkler.net/
+.. _`Stella prorgammer's guide`: http://atarihq.com/danb/files/stella.pdf
+.. _`8th Generation Intel Core Processor Family datasheet`: https://www.intel.com/content/www/us/en/processors/core/core-technical-resources.html
+.. _`Atmel ATmega328/P datasheet`: http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42735-8-bit-AVR-Microcontroller-ATmega328-328P_Datasheet.pdf
+.. _`How Many x86-64 Instructions Are There Anyway`: https://stefanheule.com/blog/how-many-x86-64-instructions-are-there-anyway/
