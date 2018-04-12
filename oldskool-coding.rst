@@ -169,11 +169,9 @@ Oldskool demos
 Community
 ---------
 
-* Almost every demos are available on Pouet and Demozoo
+* Local events (Seminars, Beetros)
 
-* Events streamed through Twitch
-
-* Scenesat.tv
+* A very active online community
 
 .. note::
 
@@ -182,6 +180,32 @@ Community
    happen in some cities (Beetros where demosceners meet to drink a
    beer, or demoscene related conferences and events).
 
+   Besides, the community is very active online. Most events are live
+   streamed through the Twitch_ platform, which also stores the videos
+   so that they keep being available online. Most demo parties also
+   host technical seminars, which are recorded and available online
+   too. Additionally, two websites serve as reference for demosceners:
+
+   * Pouet_ is the reference forum of demosceners. Every demo is
+     published on this website with every related information: the
+     authors of the demo, the date of the release, the party it has
+     been released at, the category, the rank, and possible links
+     (Online video, source code, ...). Members of the forum can then
+     post comments as well as basic votes (like thumb up, thumb down)
+     on a demo's page.
+
+   * Demozoo_ has been created later. This is more oriented towards
+     being an archive for demoscene related productions. While Pouet_
+     focuses on demos, Demozoo_ also archives every graphic and music
+     entry released during demoparties, with related information.
+
+   Other demoscene related websites focus on specific topics or
+   platforms, like Atariage_ hosting the biggest Atari community with
+   its forum, or CPCWiki_ being more or less the equivalent for the
+   Amstrad CPC platform. Some demoscene groups also have their
+   website, where they may share tools to make demos. And demosceners
+   make heavily use of IRC to discuss.
+
 ====
 
 Atari 2600/VCS
@@ -189,6 +213,146 @@ Atari 2600/VCS
 
 Specifications
 --------------
+
+.. note::
+
+   The Atari 2600/VCS has been commercialized in 1977, and was shipped
+   with a 1 MHz 8bit 6507 CPU from MOS Technology (i.e a 6502 in a
+   smaller package) and two additional chips.
+
+   The PIA (Peripheral Interface Adaptor) is an off-the-shelf 6532
+   chip providing:
+
+     * 128 bytes of RAM.
+
+     * An 8bit programmable timer, that can be setup based on
+       different possible intervals, and then read through the
+       following registers:
+
+       - TIM1T (1 clock intervals timer setup)
+       - TIM8T (8 clocks intervals timer setup)
+       - TIM64T (64 clocks intervals timer setup)
+       - T1024T (1024 clocks intervals timer setup)
+
+       - INTIM (timer output - provides the number of timer intervals
+                remaining)
+       - TIMINT (timer interrupt - becomes non null when the timer has
+                 expired)
+
+     * Two 8bit parallel I/O ports:
+
+       - Port B (SWCHB) is hardwired to read the status of the
+         console's switches.
+
+       - Port A (SWCHA) can be configured on a per bit basis (through
+         the SWACNT register) to act as input or output. That said, it
+         is mostly used to connect up to two joysticks. Each of the
+         four most significant bits is associated to a direction of
+         player 0, while the four least significant bits are
+         associated to the direction of player 1. This port can also
+         be used to read paddle triggers.
+
+   The Atari 2600 also embedded a custom integrated circuit, the TIA
+   (Television Interface Adaptor), responsible for displaying the TV
+   picture and playing the sound, by exposing:
+
+     * 45 writable registers for graphics, audio and screen
+       synchronization.
+
+     * 14 readable registers to get part of joystick input and detect
+       sprites collisions.
+
+   It has been built with games like pong or tank in mind. The TIA's
+   registers reflect this mindset. Following is how Atari designed the
+   this chip according to what they considered the "primitives" to
+   build video games (each register uses between 1 and 8 bits):
+
+     * 4 write registers are used for the screen synchronization:
+       - VSYNC (vertical sync set-clear)
+       - VBLANK (vertical blank set-clear)
+       - WSYNC (wait for leading edge of horizontal blank)
+       - RSYNC (reset horizontal sync counter)
+
+     * 6 write registers used to drive 2 audio channels:
+       - AUDC0 (audio control 0)
+       - AUDC1 (audio control 1)
+       - AUDF0 (audio frequency 0)
+       - AUDF1 (audio frequency 1)
+       - AUDV0 (audio volume 0)
+       - AUDV1 (audio volume 1)
+
+     * 35 write registers dedicated to displaying graphics:
+
+       * 6 registers are available for background and "playfield" graphics:
+         - COLUBK (color-lum background)
+         - COLUPF (color-lum playfield)
+         - PF0 (playfield register byte 0)
+         - PF1 (playfield register byte 1)
+         - PF2 (playfield register byte 2)
+
+       * 12 registers available to display 2 sprites (called players):
+         - COLUP0 (color-lum player 0)
+         - COLUP1 (color-lum player 1)
+         - REFP0 (reflect player 0)
+         - REFP1 (reflect player 1)
+         - RESP0 (reset player 0)
+         - RESP1 (reset player 1)
+         - GRP0 (graphics player 0)
+         - GRP1 (graphics player 1)
+         - HMP0 (horizontal motion player 0)
+         - HMP1 (horizontal motion player 1)
+         - VDELP0 (vertical delay player 0)
+         - VDELP1 (vertical delay player 1)
+
+       * 8 registers available to display 2 missiles:
+         - RESM0 (reset missile 0)
+         - RESM1 (reset missile 1)
+         - ENAM0 (graphics (enable) missile 0)
+         - ENAM1 (graphics (enable) missile 1)
+         - HMM0 (horizontal motion player 0)
+         - HMM1 (horizontal motion player 1)
+         - RESMP0 (reset missile 0 to player 0)
+         - RESMP1 (reset missile 1 to player 1)
+
+       * 4 registers to display 1 ball:
+         - RESBL (reset ball)
+         - ENABL (graphics (enable) ball)
+         - HMBL (horizontal motion ball)
+         - VDELBL (vertical delay ball)
+
+       * 5 registers used to setup, and postion the playfield, sprites and
+         missiles:
+         - CTRLPF (control playfield, ball size & collisions)
+         - NUSIZ0 (number-size player-missile 0)
+         - NUSIZ1 (number-size player-missile 1)
+         - HMOVE (apply horizontal motion)
+         - HMCLR (clear horizontal motion registers)
+         - CXCLR (clear collision latches)
+
+     * 8 read registers to read collisions between the 5 objects
+       supported by the platform (2 players, 2 missiles, 1 ball and
+       the playfield):
+         - CXM0P (read collision D7:M0/P1 D6:M0/P0)
+	 - CXM1P (read collision D7:M1/P0 D6:M1/P1)
+	 - CXP0FB (read collision D7:P0/PF D6:P0/BL)
+	 - CXP1FB (read collision D7:P1/PF D6:P1/BL)
+	 - CXM0FB (read collision D7:M0/PF D6:M0/BL)
+	 - CXM1FB (read collision D7:M1/PF D6:M1/BL)
+	 - CXBLPF (read collision D7:BL/PF D6:unused)
+	 - CXPPMM (read collision D7:P0/P1 D6:M0/M1)
+
+     * 6 read registers to get input from the paddles, as well as the
+       joysticks' trigger buttons:
+         - INPT0 (read pot port)
+         - INPT1 (read pot port)
+         - INPT2 (read pot port)
+         - INPT3 (read pot port)
+         - INPT4 (read input)
+         - INPT5 (read input)
+
+   Finally, the Atari 2600/VCS supports ROM cartridges with a capacity
+   of 4 KBytes (first cartridgess) to 32 KBytes (using a bank
+   switching trick).
 
 Graphics coding
 ---------------
