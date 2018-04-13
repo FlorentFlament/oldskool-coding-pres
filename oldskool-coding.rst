@@ -264,6 +264,9 @@ Atari 2600/VCS
    less instructions than the 8-bit AVR and 40 times less instruction
    than x86-64 processors.
 
+   Q: What about CPU registers ?
+
+
 Specifications
 --------------
 
@@ -294,7 +297,8 @@ Specifications
              instruction to be executed).
 
    It embeds two additional chips. The PIA (Peripheral Interface
-   Adaptor) is an off-the-shelf 6532 chip providing:
+   Adaptor) is an off-the-shelf 6532 RIOT (RAM-I/O-Timer) chip
+   providing:
 
      * 128 bytes of RAM.
 
@@ -430,8 +434,145 @@ Specifications
    The `Stella Programmer's guide`_ (by Steve Wright - 1979) provides
    all the information required to program the platform.
 
+
+The toolchain
+-------------
+
+.. note::
+
+   The only tools we need to start coding for the Atari 2600/VCS
+   platform are:
+
+   * An assembler supporting the 6502 processor. The examples here can
+     be compiled with DASM_.
+
+   * An Atari 2600 emulator, like Stella_, which embeds a powerful
+     debugger.
+
+   * An Atari 2600 console, with a `Harmony cartridge`_, which allows
+     launching roms stored on an SSD card on an Atari VCS console.
+
+   To build an executable Atari binary from the assembler source code
+   and have it run on the emulator, one can use the following
+   commands:
+
+.. code:: shell
+
+   $ dasm sync.asm -f3
+
+   Complete.
+
+   $ stella a.out
+
+
 Graphics coding
 ---------------
+
+Synchronization
+...............
+
+.. note::
+
+   The minimal code running on the Atari to display a picture must
+   deal with the synchronization of the TV beam. A couple of registers
+   are available for this purpose; the timer as well can be used to
+   synchronize the code with the TV beam.
+
+   The TIA handles automatically the horizontal synchronization. It
+   generates the horizontal sync signal (HSYNC) when the beam reaches
+   the right edge of the screen, to have it turned off and return to
+   the left edge. However, it often happens that the CPU needs to
+   synchronize itself with the beam to update the graphic registers on
+   a per line basis. For that purpose, the WSYNC (Wait for SYNC)
+   strobe register, when written to, stops the processor until the
+   beam reaches the right edge of the screen, then turns the processor
+   back on, so that it can update the relevant registers for the next
+   line to be displayed. That way the CPU can deterministically
+   execute code in sync with the TV beam.
+
+   Depending on the TV standard of the console and the TV (NTSC or
+   PAL), a vertical sync (VSYNC) signal has to be sent every 262 lines
+   for an NTSC setup (resulting in a 60 Hz refresh rate) or every 312
+   lines for a PAL setup (for a 50 Hz refresh rate). It is the
+   responsability of the microprocessor to handle the vertical
+   synchronization by:
+
+   * writing a '1' to D1 of the VSYNC register to turn on the vertical
+     sync signal,
+
+   * then waiting for at least 3 scanlines to signal the TV to
+     reposition its beam at the top of the screen,
+
+   * writing a '0' to D1 of VSYNC to turn off the VSYNC signal,
+
+   * then writing a '1' to D1 of the VBLANK register to turn off the
+     beam during its repositioning,
+
+   * counting 37 lines (NTSC) or 45 lines (PAL), to let the beam go
+     back to the top of the screen (Note that the CPU can use this
+     time to perform some computation),
+
+   * eventually, the CPU will have to write a '0' to D1 of VBLANK to
+     turn the beam back on.
+
+.. code:: assembly
+
+   ;---------- Header ----------
+           PROCESSOR 6502
+           INCLUDE "vcs.h"         ; Provides RIOT & TIA memory map
+
+   ;---------- Code segment ----------
+           SEG code
+           ORG $F000
+   main_loop:
+           ; Write '1' to D1 of VSYNC
+           lda #$02                ; This corresponds to the 00000010 byte
+           sta VSYNC
+
+           ; Wait 3 scanlines
+           sta WSYNC
+           sta WSYNC
+           sta WSYNC
+
+           ; Write '0' to D1 of VSYNC
+           lda #$00
+           sta VSYNC
+
+           ; Write '1' to D1 of VBLANK
+           lda #$02
+           sta VBLANK
+
+           ; Count 45 lines for VBLANK
+           ldx #45
+   vblank_loop:
+           sta WSYNC
+           dex
+           bne vblank_loop
+
+           ; Write '0' to D1 of VBLANK
+           lda #$00
+           sta VBLANK
+
+           ; Count 312 - 48 = 264 lines
+           ; in two passes of 132 (max counter value is 255)
+           ldy #2
+   outer_loop:
+           ldx #132
+   inner_loop:
+           sta WSYNC
+           dex
+           bne inner_loop
+           dey
+           bne outer_loop
+
+           jmp main_loop
+
+   ;---------- Reset Vector ----------
+           SEG reset
+           ORG $FFFA
+           DC.W main_loop ; NMI
+           DC.W main_loop ; RESET
+           DC.W main_loop ; IRQ / BRK
 
 Music coding
 ------------
@@ -461,3 +602,5 @@ Atari VCS demos
 .. _`8th Generation Intel Core Processor Family datasheet`: https://www.intel.com/content/www/us/en/processors/core/core-technical-resources.html
 .. _`Atmel ATmega328/P datasheet`: http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42735-8-bit-AVR-Microcontroller-ATmega328-328P_Datasheet.pdf
 .. _`How Many x86-64 Instructions Are There Anyway`: https://stefanheule.com/blog/how-many-x86-64-instructions-are-there-anyway/
+.. _DASM: https://github.com/munsie/dasm
+.. _Stella: https://stella-emu.github.io/
