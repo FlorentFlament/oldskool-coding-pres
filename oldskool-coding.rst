@@ -228,20 +228,31 @@ Atari 2600/VCS
 
    * The `8th Generation Intel Core Processor Family datasheet`_ is
      spread over 3 documents for a total of 681 pages:
+
      - platform datasheet vol 1 (155 pages)
+
      - platform datasheet vol 2 (488 pages)
+
      - spec update (41 pages)
 
    * The `Atmel ATmega328/P datasheet`_ weights 441 pages. For $2, the
      microcontroller embeds:
+
      - an AVR 8bit CPU running at up to 20 MHz
+
      - 32 KBytes of Flash memory
+
      - 1 KBytes EEPROM
+
      - 2 KByes SRAM
+
      - many peripherals including
-       - three timers (two 8-bit and one 16-bit)
-       - a programmable Serial USART interface
-       - an ADC (Analog to Digital converter) and a DAC (Digital to
+
+       * three timers (two 8-bit and one 16-bit)
+
+       * a programmable Serial USART interface
+
+       * an ADC (Analog to Digital converter) and a DAC (Digital to
          Analog Converter)
 
    We can also compare the size of the 6502 processor instructions set
@@ -284,15 +295,20 @@ Specifications
 
      * The CPU provides five 8-bit registers and a 16-bit program
        counter:
+
        - A (The accumulator is used for arithmetic and logic
             operations)
+
        - X and Y (The index registers allow accessing data using a
                   base address and an offset).
+
        - P (The processor status flags, providing information about
             the last instructions executed, like whether there was a
             carry, if the last number manipulated was zero, ...)
+
        - S (The stack pointer is an index that points to the next
             empty slot available in the stack).
+
        - PC (The 16-bit program counter, which points towards the next
              instruction to be executed).
 
@@ -515,7 +531,7 @@ Synchronization
    * eventually, the CPU will have to write a '0' to D1 of VBLANK to
      turn the beam back on.
 
-.. code:: assembly
+.. code:: nasm
 
    ;---------- Header ----------
            PROCESSOR 6502
@@ -598,9 +614,20 @@ Atari VCS demos
 ===============
 
 .. _Crinkler: http://crinkler.net/
-.. _`Stella prorgammer's guide`: http://atarihq.com/danb/files/stella.pdf
+.. _`Stella programmer's guide`: http://atarihq.com/danb/files/stella.pdf
 .. _`8th Generation Intel Core Processor Family datasheet`: https://www.intel.com/content/www/us/en/processors/core/core-technical-resources.html
 .. _`Atmel ATmega328/P datasheet`: http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42735-8-bit-AVR-Microcontroller-ATmega328-328P_Datasheet.pdf
 .. _`How Many x86-64 Instructions Are There Anyway`: https://stefanheule.com/blog/how-many-x86-64-instructions-are-there-anyway/
 .. _DASM: https://github.com/munsie/dasm
 .. _Stella: https://stella-emu.github.io/
+.. _Unity: https://unity3d.com/
+.. _Notch: https://www.notch.one/
+.. _Revision: https://2018.revision-party.net/
+.. _Shadertoy: https://www.shadertoy.com/
+.. _`Silly Venture`: http://sillyventure.eu/en/
+.. _Twitch: https://www.twitch.tv/
+.. _Pouet: http://www.pouet.net/
+.. _Demozoo: https://demozoo.org/
+.. _Atariage: https://atariage.com/
+.. _CPCWiki: http://www.cpcwiki.eu/index.php/Main_Page
+.. _`Harmony Cartridge`: http://harmony.atariage.com/Site/Harmony.html
