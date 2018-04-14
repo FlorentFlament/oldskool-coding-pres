@@ -1,45 +1,33 @@
+:css: css/presentation.css
+
 .. title:: Oldskool coding on Atari 2600/VCS
 
 Oldskool coding on Atari 2600/VCS
 =================================
 
-* [TODO] Put a nice pic there
+.. image:: pics/stella-a-trois.png
 
-* Author: Florent Flament (contact@florentflament.com)
-
-====
-
-Context
-=======
+Florent Flament (contact@florentflament.com)
 
 ====
 
 Demoscene
----------
+=========
 
 .. image:: pics/revision-2018.jpg
-   :width: 100 %
 
 ====
 
 Computer art subculture
+-----------------------
 
 .. image:: pics/iloe_concrete-flower.jpg
-   :width: 100 %
 
-====
+* Demoparties
 
-Born in 1980s as "copyparties"
+* Demo competitions (compos)
 
-.. image:: pics/cracktro-razor1911.png
-   :width: 100 %
-
-====
-
-Still dozens of demoparties every year
-
-.. image:: pics/silly-venture-2018.jpg
-   :width: 100 %
+* Real time animated drawings, effects, 3D models, music
 
 .. note::
 
@@ -55,16 +43,44 @@ Still dozens of demoparties every year
    musician and a coder). Most demoparties also host musics, graphics,
    and sometimes photos competitions.
 
+====
+
+Born in 1980s as "copyparties"
+------------------------------
+
+.. image:: pics/cracktro-razor1911.png
+
+* Copy and crack software
+
+* Cracktros
+
+* Fork between crackscene and demoscene
+
+.. note::
+
    Demoparties originate from copyparties happening in the 1980s,
    where computer enthusiasts met together to copy (and crack)
    software. Cracker groups usually added a short intro (animated
    graphics with music) to the software they cracked. Later in the
    1980s, groups focusing on making demos, rather than cracking
    software appeared leading to a fork between the "crackscene" and
-   the "demoscene". As of today, there are still dozens of demoparties
-   happening (mostly in Europe - like the Revision, Evoke and Assembly
-   parties) every year, usually gathering dozens to hundreds of
-   participants (Revision 2018 hosted around 700 participants).
+   the "demoscene".
+
+====
+
+Still dozens of demoparties every year
+--------------------------------------
+
+.. image:: pics/silly-venture-2018.jpg
+
+* Tens to hundreds of participants
+
+.. note::
+
+   As of today, there are still dozens of demoparties happening
+   (mostly in Europe - like the Revision, Evoke and Assembly parties)
+   every year, usually gathering dozens to hundreds of participants
+   (Revision 2018 hosted around 700 participants).
 
 ====
 
