@@ -17,11 +17,29 @@ Context
 Demoscene
 ---------
 
-* Computer art subculture
+.. image:: pics/revision-2018.jpg
+   :width: 100 %
 
-* Born in 1980s as "copyparties"
+====
 
-* Still dozens of demoparties every year
+Computer art subculture
+
+.. image:: pics/iloe_concrete-flower.jpg
+   :width: 100 %
+
+====
+
+Born in 1980s as "copyparties"
+
+.. image:: pics/cracktro-razor1911.png
+   :width: 100 %
+
+====
+
+Still dozens of demoparties every year
+
+.. image:: pics/silly-venture-2018.jpg
+   :width: 100 %
 
 .. note::
 
