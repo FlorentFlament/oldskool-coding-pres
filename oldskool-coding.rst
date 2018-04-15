@@ -46,7 +46,7 @@ Computer art subculture
 ====
 
 Born in 1980s as "copyparties"
-------------------------------
+..............................
 
 .. image:: pics/cracktro-razor1911.png
 
@@ -69,7 +69,7 @@ Born in 1980s as "copyparties"
 ====
 
 Still dozens of demoparties every year
---------------------------------------
+......................................
 
 .. image:: pics/silly-venture-2018.jpg
 
@@ -87,11 +87,11 @@ Still dozens of demoparties every year
 PC demos
 --------
 
-* Limited size demos (or intros)
+.. image:: pics/block-one-ntsc.png
 
-* Unrestricted demos
+* PC compos
 
-* Shader showdown (live coding)
+* Oldskool compos
 
 .. note::
 
@@ -101,6 +101,21 @@ PC demos
    PC demos make heavily use of the latest graphic cards' hardware
    capabilities, to display real time animated 3D scenes with effects
    involving millions of polygons and/or particles.
+
+====
+
+Limited size demos
+..............................
+
+.. image:: pics/elevated.png
+
+* 4K to 64K
+
+* Procedural graphics
+
+* 3D models compression
+
+.. note::
 
    Among PC compos, we can find "limited size demos (or intros)". The
    rule is quite simple. To participate in such compo, the size of the
@@ -114,6 +129,19 @@ PC demos
    powerful compression tools (the most well known being Crinkler_)
    are used to save space.
 
+====
+
+Unconstrainted demos
+....................
+
+.. image:: pics/block-one-faces.png
+
+* No size constraints
+
+* Use of frameworks
+
+.. note::
+
    Then we have the so-called "PC demos", which aren't constrained,
    though they must still be rendered in real time. Most of these
    demos are made using frameworks, like Unity_ (a commercial software
@@ -122,6 +150,21 @@ PC demos
    demos and visuals) or custom frameworks. These demos are mostly
    driven by visual artists who are able to create deep, beautiful and
    original 3D scenes.
+
+====
+
+Shader showdown
+.............................
+
+.. image:: pics/shader-showdown.png
+
+* Live coding
+
+* Fragment shader
+
+* Ray marching
+
+.. note::
 
    Eventually, some parties (like Revision_) host so-called shader
    showdown shows. These consist in live coding performances where two
@@ -142,11 +185,13 @@ PC demos
 Oldskool demos
 --------------
 
-* Platform constraints (8bit or 16bit)
+.. image:: pics/Atari-2600-Wood-4Sw-Set.jpg
 
-* Limited vs Unlimited size oldskool demos
+* 8-bit / 16-bit platforms
 
-* Per platform compos
+* From pushing the hardware
+
+* To making original contrained productions
 
 .. note::
 
@@ -166,20 +211,62 @@ Oldskool demos
    memory and computing power). Another goal is to make these
    platforms live and avoid them to be forgotten.
 
+====
+
+Unlimited size oldskool demos
+.............................
+
+.. image:: pics/condense.png
+
+* Constrained by the platforms' capabilities
+
+* Constrained by the size of the platforms' mediums
+
+* Enough room for high quality graphics
+
+.. note::
+
    Depending on the demoparty, there may be several categories where
    oldskool demos are competing. In generalist demoparties (like
    Revision and Evoke), all the oldskool platforms are regrouped into
    a single "oldskool" category (constrained by the size of the
-   platform's medium, i.e one or two disks). Some parties propose
-   limited size compos, like the oldskool 4K intro compo of the
-   Revision party. However, the overall difference between a 4K
-   oldskool intro and an unconstrained oldskool demo is much less
-   significant than between size limited and unconstrained PC
-   demos. As we have seen previously, the size limitation in the PC
+   platform's medium, i.e one or two disks).
+
+====
+
+Limited size oldskool demos
+...........................
+
+.. image:: pics/isometrikum-vanity.png
+
+* 4K intros
+
+* Hard to fit graphics
+
+.. note::
+
+   Some parties propose limited size compos, like the oldskool 4K
+   intro compo of the Revision party. However, the overall difference
+   between a 4K oldskool intro and an unconstrained oldskool demo is
+   much less significant than between size limited and unconstrained
+   PC demos. As we have seen previously, the size limitation in the PC
    world has for consequence a completely different approach in the
    way a demo is made. In the oldskool world, 4K intros are relatively
    similar to unconstrained demos, although being shorter, involving
    only one or a few effects, and without high resolution graphics.
+
+====
+
+Per platform compos
+...................
+
+.. image:: pics/2600bc.png
+
+* Very different platforms' capabilities
+
+* Specialized parties
+
+.. note::
 
    That said, there is a drawback in parties having a single oldskool
    demo category. Oldskool platforms have very different capabilities,
@@ -203,9 +290,9 @@ Oldskool demos
 Community
 ---------
 
-* Local events (Seminars, Beetros)
+.. image:: pics/local-shader-showdown.jpg
 
-* A very active online community
+* Local events (Seminars, Beetros)
 
 .. note::
 
@@ -213,6 +300,23 @@ Community
    demo parties organized every year, a lot of (smaller) local events
    happen in some cities (Beetros where demosceners meet to drink a
    beer, or demoscene related conferences and events).
+
+====
+
+Online community
+................
+
+.. image:: pics/pouet.png
+
+* Twitch - live streams
+
+* Pouet - reference demoscene forum
+
+* Demozoo - archive
+
+* Specialized forums (Atariage, CPCWiki, ...)
+
+.. note::
 
    Besides, the community is very active online. Most events are live
    streamed through the Twitch_ platform, which also stores the videos
