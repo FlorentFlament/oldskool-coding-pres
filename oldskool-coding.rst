@@ -719,8 +719,18 @@ Build & Launch
 Graphics coding
 ---------------
 
+.. image:: pics/flush-bin-robot.png
+
+====
+
 Synchronization
 ...............
+
+.. image:: pics/stella-timings.jpg
+
+* Automatic horizontal sync
+
+* CPU driven vertical sync
 
 .. note::
 
@@ -766,15 +776,13 @@ Synchronization
    * eventually, the CPU will have to write a '0' to D1 of VBLANK to
      turn the beam back on.
 
-.. code:: nasm
+====
 
-   ;---------- Header ----------
-           PROCESSOR 6502
-           INCLUDE "vcs.h"         ; Provides RIOT & TIA memory map
+Minimal code
+............
 
-   ;---------- Code segment ----------
-           SEG code
-           ORG $F000
+.. code::
+
    main_loop:
            ; Write '1' to D1 of VSYNC
            lda #$02                ; This corresponds to the 00000010 byte
@@ -818,18 +826,88 @@ Synchronization
 
            jmp main_loop
 
-   ;---------- Reset Vector ----------
-           SEG reset
-           ORG $FFFA
-           DC.W main_loop ; NMI
-           DC.W main_loop ; RESET
-           DC.W main_loop ; IRQ / BRK
+====
+
+VERTICAL_SYNC macro
+...................
+
+.. code::
+
+   main_loop:
+           VERTICAL_SYNC
+
+           ; Write '1' to D1 of VBLANK
+           lda #$02
+           sta VBLANK
+
+           ; Count 44 lines for VBLANK
+           ldx #44
+   vblank_loop:
+           sta WSYNC
+           dex
+           bne vblank_loop
+
+           ; Write '0' to D1 of VBLANK
+           lda #$00
+           sta VBLANK
+
+           ; Count 312 - 48 = 264 lines
+           ; in two passes of 132 (max counter value is 255)
+           ldy #2
+   outer_loop:
+           ldx #132
+   inner_loop:
+           sta WSYNC
+           dex
+           bne inner_loop
+           dey
+           bne outer_loop
+
+           jmp main_loop
+
+====
+
+Blinking screen
+...............
+
+.. code::
+
+   ;---------- RAM segment ----------
+           SEG.U ram
+           ORG $0080
+   frame_cnt ds 1
+
+   ;---------- Code segment ----------
+           SEG code
+           ORG $F000
+           CLEAN_START
+
+   main_loop:
+           VERTICAL_SYNC
+
+           ; Write '1' to D1 of VBLANK
+           lda #$02
+           sta VBLANK
+
+           ; Vblank header logic
+           inc frame_cnt
+           lda frame_cnt
+           lsr
+           sta COLUBK
+
+           ; Count 44 lines for VBLANK
+           ldx #44
+   vblank_loop:
+           sta WSYNC
+           dex
+           bne vblank_loop
+
+====
 
 Music coding
 ------------
 
-####
-
+====
 
 Team collaboration
 ==================
@@ -843,7 +921,7 @@ Collaboration tools
 Collaboration process
 ---------------------
 
-####
+====
 
 Atari VCS demos
 ===============
