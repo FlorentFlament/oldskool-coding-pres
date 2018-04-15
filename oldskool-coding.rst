@@ -185,7 +185,7 @@ Shader showdown
 Oldskool demos
 --------------
 
-.. image:: pics/Atari-2600-Wood-4Sw-Set.jpg
+.. image:: pics/C64_startup_animiert.gif
 
 * 8-bit / 16-bit platforms
 
@@ -349,12 +349,33 @@ Online community
 Atari 2600/VCS
 ==============
 
+.. image:: pics/Atari-2600-Wood-4Sw-Set.jpg
+
+* Basic hardware
+
+* Infinite possibilities
+
 .. note::
 
    Why I chose to work on the Atari 2600/VCS platform ? I'd say that
    it's about the challenge of doing something interesting, with the
    simplest (or at least most basic) existing hardware on earth, that
    can do graphics and sound.
+
+====
+
+Relative complexity (Datasheet)
+-------------------------------
+
+.. image:: pics/intel-cpu.jpg
+
+* Atari 2600: 57 pages
+
+* 8th gen Intel Core Processor family: 681 pages
+
+* Atmel ATmega328: 441 pages
+
+.. note::
 
    To assess the relative complexity of the Atari 2600 platform
    compared to modern chips, here are some statistics about the
@@ -393,6 +414,21 @@ Atari 2600/VCS
        * an ADC (Analog to Digital converter) and a DAC (Digital to
          Analog Converter)
 
+====
+
+Relative complexity (Instructions set)
+--------------------------------------
+
+.. image:: pics/medium-ATmega328-SPDIP-28.png
+
+* 6502: 56 instructions
+
+* x86-64 ISA: 981-3683 instructions
+
+* 8-bit AVR: 142 instructions
+
+.. note::
+
    We can also compare the size of the 6502 processor instructions set
    versus today's high-end CPUs like the x86-64 family and low-end
    modern CPUs like the 8-bit AVR:
@@ -415,9 +451,21 @@ Atari 2600/VCS
 
    Q: What about CPU registers ?
 
+====
 
 Specifications
 --------------
+
+6502 CPU
+........
+
+.. image:: pics/6502.jpg
+
+* Commercialized in 1977
+
+* 56 instructions
+
+* 5 8-bit registers + 16-bit PC
 
 .. note::
 
@@ -449,6 +497,21 @@ Specifications
 
        - PC (The 16-bit program counter, which points towards the next
              instruction to be executed).
+
+====
+
+6532 RIOT
+.........
+
+.. image:: pics/6532-riot.jpg
+
+* 128 bytes of RAM
+
+* 8-bit timer
+
+* two 8-bit parallel I/O ports
+
+.. note::
 
    It embeds two additional chips. The PIA (Peripheral Interface
    Adaptor) is an off-the-shelf 6532 RIOT (RAM-I/O-Timer) chip
@@ -482,6 +545,23 @@ Specifications
          player 0, while the four least significant bits are
          associated to the direction of player 1. This port can also
          be used to read paddle triggers.
+
+====
+
+TIA
+...
+
+.. image:: pics/tia.jpg
+
+* 35 writable registers for graphics
+
+* 6 writable registers for audio
+
+* 4 writable registers for TV synchronization
+
+* 14 readable registers for joystick and collisions
+
+.. note::
 
    The Atari 2600 also embeds a custom integrated circuit, the TIA
    (Television Interface Adaptor), responsible for displaying the TV
@@ -588,9 +668,18 @@ Specifications
    The `Stella Programmer's guide`_ (by Steve Wright - 1979) provides
    all the information required to program the platform.
 
+====
 
 The toolchain
 -------------
+
+.. image:: pics/harmony.jpg
+
+* DASM assembler
+
+* Stella emulator
+
+* Harmony cartridge
 
 .. note::
 
@@ -610,7 +699,14 @@ The toolchain
    and have it run on the emulator, one can use the following
    commands:
 
-.. code:: shell
+====
+
+Build & Launch
+..............
+
+.. image:: pics/stella-emulator.jpg
+
+.. code:: sh
 
    $ dasm sync.asm -f3
 
@@ -618,6 +714,7 @@ The toolchain
 
    $ stella a.out
 
+====
 
 Graphics coding
 ---------------
