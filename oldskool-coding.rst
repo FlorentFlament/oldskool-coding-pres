@@ -867,8 +867,8 @@ VERTICAL_SYNC macro
 
 ====
 
-Blinking screen
-...............
+Blinking screen code
+....................
 
 .. code::
 
@@ -901,6 +901,13 @@ Blinking screen
            sta WSYNC
            dex
            bne vblank_loop
+
+====
+
+Blinking screen
+...............
+
+.. image:: pics/bgcolor.gif
 
 ====
 
