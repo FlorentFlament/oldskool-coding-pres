@@ -43,6 +43,8 @@ Computer art subculture
    musician and a coder). Most demoparties also host musics, graphics,
    and sometimes photos competitions.
 
+   60 sec
+
 ====
 
 Born in 1980s as "copyparties"
@@ -66,6 +68,8 @@ Born in 1980s as "copyparties"
    software appeared leading to a fork between the "crackscene" and
    the "demoscene".
 
+   30 sec -> 90 sec
+
 ====
 
 Still dozens of demoparties every year
@@ -81,6 +85,8 @@ Still dozens of demoparties every year
    (mostly in Europe - like the Revision, Evoke and Assembly parties)
    every year, usually gathering dozens to hundreds of participants
    (Revision 2018 hosted around 700 participants).
+
+   20 sec -> 110 sec
 
 ====
 
@@ -101,6 +107,8 @@ PC demos
    PC demos make heavily use of the latest graphic cards' hardware
    capabilities, to display real time animated 3D scenes with effects
    involving millions of polygons and/or particles.
+
+   20 sec -> 130 sec
 
 ====
 
@@ -129,6 +137,8 @@ Limited size demos
    powerful compression tools (the most well known being Crinkler_)
    are used to save space.
 
+   55 sec -> 185 sec
+
 ====
 
 Unconstrainted demos
@@ -150,6 +160,8 @@ Unconstrainted demos
    demos and visuals) or custom frameworks. These demos are mostly
    driven by visual artists who are able to create deep, beautiful and
    original 3D scenes.
+
+   35 sec -> 220 sec
 
 ====
 
@@ -179,6 +191,8 @@ Shader showdown
    called ray marching, as it allows to quickly create sophisticated
    3D scenes. Communities around shaders have emerged and code is
    being shared on websites like Shadertoy_ (the most widely known).
+
+   60 sec -> 280 sec
 
 ====
 
@@ -211,6 +225,8 @@ Oldskool demos
    memory and computing power). Another goal is to make these
    platforms live and avoid them to be forgotten.
 
+   66 sec -> 346 sec
+
 ====
 
 Unlimited size oldskool demos
@@ -231,6 +247,8 @@ Unlimited size oldskool demos
    Revision and Evoke), all the oldskool platforms are regrouped into
    a single "oldskool" category (constrained by the size of the
    platform's medium, i.e one or two disks).
+
+   20 sec -> 366 sec
 
 ====
 
@@ -254,6 +272,8 @@ Limited size oldskool demos
    way a demo is made. In the oldskool world, 4K intros are relatively
    similar to unconstrained demos, although being shorter, involving
    only one or a few effects, and without high resolution graphics.
+
+   45 sec -> 411 sec
 
 ====
 
@@ -285,6 +305,8 @@ Per platform compos
    competitions (Atari 2600/VCS, Atari 8bit, Atari ST, Atari Falcon),
    though there may be less entries per compo.
 
+   80 sec -> 491 sec
+
 ====
 
 Community
@@ -300,6 +322,8 @@ Community
    demo parties organized every year, a lot of (smaller) local events
    happen in some cities (Beetros where demosceners meet to drink a
    beer, or demoscene related conferences and events).
+
+   20 sec -> 511 sec
 
 ====
 
@@ -344,6 +368,8 @@ Online community
    website, where they may share tools to make demos. And demosceners
    make heavily use of IRC to discuss.
 
+   92 sec -> 603 secs
+
 ====
 
 Atari 2600/VCS
@@ -361,6 +387,8 @@ Atari 2600/VCS
    it's about the challenge of doing something interesting, with the
    simplest (or at least most basic) existing hardware on earth, that
    can do graphics and sound.
+
+   20 sec -> 623 sec
 
 ====
 
@@ -403,7 +431,7 @@ Relative complexity (Datasheet)
 
      - 1 KBytes EEPROM
 
-     - 2 KByes SRAM
+     - 2 KBytes SRAM
 
      - many peripherals including
 
@@ -413,6 +441,8 @@ Relative complexity (Datasheet)
 
        * an ADC (Analog to Digital converter) and a DAC (Digital to
          Analog Converter)
+
+   94 sec -> 717 sec
 
 ====
 
@@ -446,10 +476,12 @@ Relative complexity (Instructions set)
    Be it on the size of its datasheet or its CPU instructions set, the
    Atari 2600 is much simpler than modern chips. Its datasheet's size
    is roughly 10 times smaller than modern chips', and it has 3 times
-   less instructions than the 8-bit AVR and 40 times less instruction
+   less instructions than the 8-bit AVR and 40 times less instructions
    than x86-64 processors.
 
    Q: What about CPU registers ?
+
+   70 sec -> 787 sec
 
 ====
 
@@ -498,6 +530,8 @@ Specifications
        - PC (The 16-bit program counter, which points towards the next
              instruction to be executed).
 
+    94 sec -> 881 sec
+
 ====
 
 6532 RIOT
@@ -545,6 +579,8 @@ Specifications
          player 0, while the four least significant bits are
          associated to the direction of player 1. This port can also
          be used to read paddle triggers.
+
+   70 sec -> 951 sec
 
 ====
 
@@ -668,6 +704,8 @@ TIA
    The `Stella Programmer's guide`_ (by Steve Wright - 1979) provides
    all the information required to program the platform.
 
+   119 sec -> 1070 sec
+
 ====
 
 The toolchain
@@ -693,11 +731,9 @@ The toolchain
      debugger.
 
    * An Atari 2600 console, with a `Harmony cartridge`_, which allows
-     launching roms stored on an SSD card on an Atari VCS console.
+     launching roms stored on an SD card on an Atari VCS console.
 
-   To build an executable Atari binary from the assembler source code
-   and have it run on the emulator, one can use the following
-   commands:
+   30 sec -> 1200 sec
 
 ====
 
@@ -713,6 +749,14 @@ Build & Launch
    Complete.
 
    $ stella a.out
+
+.. note::
+
+   To build an executable Atari binary from the assembler source code
+   and have it run on the emulator, one can use the following
+   commands:
+
+   10 sec -> 1210 sec
 
 ====
 
@@ -775,6 +819,8 @@ Synchronization
 
    * eventually, the CPU will have to write a '0' to D1 of VBLANK to
      turn the beam back on.
+
+   135 sec -> 1345 sec
 
 ====
 
@@ -1090,8 +1136,10 @@ The Grid
 
 ====
 
-Displaying a picture
-....................
+Displaying a picture using playfield
+....................................
+
+.. image:: pics/burstday.png
 
 .. note::
 
@@ -1108,13 +1156,10 @@ Displaying a picture
 
 ====
 
-Picture data
-............
+Displaying a picture using sprites
+..................................
 
-====
-
-Picture code
-............
+.. image:: pics/nolan.png
 
 ====
 
@@ -1235,8 +1280,18 @@ Sound volume loop
 
 ====
 
-Atari VCS demos
-===============
+TIA Tracker
+-----------
+
+.. image:: pics/tiatracker.png
+
+* Can be used by a musician to create music
+
+* Generates assembly code to be played on the VCS
+
+====
+
+.. image:: pics/thank-you.png
 
 .. _Crinkler: http://crinkler.net/
 .. _`Stella programmer's guide`: http://atarihq.com/danb/files/stella.pdf
