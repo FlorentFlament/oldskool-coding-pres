@@ -1215,6 +1215,26 @@ Sound frequency loop
 
 ====
 
+Sound volume loop
+-----------------
+
+.. code::
+
+   fx_vblank SUBROUTINE
+           inc frame_cnt
+           lda frame_cnt
+
+           ldx #4
+   .loop:
+           lsr
+           dex
+           bne .loop
+
+           sta AUDV0
+           rts
+
+====
+
 Atari VCS demos
 ===============
 
