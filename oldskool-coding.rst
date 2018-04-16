@@ -911,22 +911,215 @@ Blinking screen
 
 ====
 
-Music coding
-------------
+Synchronizing using timer
+.........................
+
+* Rely on RIOT timer to free CPU
+
+* Which timer granularity ?
+
+* Which timer value to wait for ?
+
+.. note::
+
+   Instead of having the CPU actively waiting and counting the
+   appropriate number of scanlines, we can use the timer available in
+   the RIOT chip. The timer will therefore run independently, letting
+   the CPU free to do whatever it wants. This can typically be used to
+   let the CPU perform the drawing on the screen. Once the CPU is
+   done, it has to wait for the timer to expire, so it be synchronized
+   and able to handle the vertical sync signal.
+
+   In practice, the timer has constraints that the programmer must
+   deal with:
+
+   * It is an 8-bit counter, so its maximum value is 255.
+
+   * It provides a few possible granularities for the speed at which
+     the counter is decremeneted: 1, 8, 64, 1024 clock ticks.
+
+   For instance, after completing the VBLANK synchronization, the CPU
+   has to wait for 264 scanlines before sending the next Vertical SYNC
+   signal. In addition, the CPU needs to be free during up to 248
+   scanlines to be able to display the kernel (picture on the
+   screen). This means that the timer has to expire between 248 and
+   264 scanlines.
+
+   What is the best granularity to use in this context ? The TIM64T
+   register allows waiting at most 64*256/76 = 215.6 scanlines, which
+   is not enough. The T1024T register allows waiting:
+
+   * 18*1024/76 = 242.5 lines
+   * 19*1024/76 = 256 lines
+   * 20*1024/76 = 269.5 lines
+
+   Here it is, by waiting for 19 T1024T timer cycles we can wait for
+   256 scanlines, which falls into the [248, 264] interval we saw
+   earlier. Once the timer has expired the CPU needs to wait for 8
+   additional scanlines before sending the vertical synchronization
+   signal.
 
 ====
 
-Team collaboration
-==================
+Framework using timer
+.....................
 
-Team members
+.. code::
+
+   main_loop:
+           VERTICAL_SYNC
+
+           ; Write '1' to D1 of VBLANK
+           lda #$02
+           sta VBLANK
+
+           ; Count 44 lines for VBLANK
+	   ; By loading 44*76 / 64 = 52 into the TIM64T timer register
+           lda #52
+           sta TIM64T
+
+           jsr fx_vblank
+           jsr wait_timint
+
+           ; Write '0' to D1 of VBLANK
+           lda #$00
+           sta VBLANK
+
+           ; Waiting for 19 T1024T cycles, leading to 256 scanelines
+           ; (which is a good compromise).
+           lda #19
+           sta T1024T
+
+           jsr fx_kernel ; This subroutine should display the picture (kernel)
+           jsr wait_timint ; Then we wait for the timer to expire
+
+           ; 264 - 256 = 8 remaining scanlines to wait for
+           ldx #8
+   overscan_loop:
+           sta WSYNC
+           dex
+           bne overscan_loop
+
+           jmp main_loop
+
+   ; Wait for timer to expire
+   wait_timint:
+           lda TIMINT
+           beq wait_timint
+           rts
+
+====
+
+The playfield
+.............
+
+.. image:: pics/playfield.png
+
+* 3 registers: PF0, PF1, PF2
+
+* 2 modes: repeated or mirrored
+
+* 40 horizontal pixels using tricks
+
+.. note::
+
+   Three 8-bit registers (PF0, PF1 and PF2) can be used to display a
+   "playfield". The first 4 bits of PF0 are actually taken into
+   account, together with the 8 bits of PF1 and PF2. This makes a
+   total of 20 bits describing a playfield line. The 20 playfield
+   bits, actually describe the first half of a line (i.e 20 large
+   pixels), which can then be either copied, or mirrorer on the second
+   half of the screen, depending on the CTRLPF register.
+
+   It is actually possible to set 40 distinct pixels per line using
+   the playfield registers, by updating them on the fly. The idea is
+   to write some value into PF0, to describe the first band of the
+   line. Once the corresponding zone has been displayed, we can update
+   PF0 before it is redisplayed on the second half of the screen. The
+   image would look like we had 6 playfield registers, while we are
+   actually juggling with 3 registers, by updating their values twice
+   per line.
+
+
+====
+
+Basic procedural graphics
+.........................
+
+.. code::
+
+   fx_kernel SUBROUTINE
+           ldx #240 ; Displaying 240 lines
+   .kernel_loop:
+           sta WSYNC
+           dex
+           txa
+           and #$08 ; Testing 4th bit i.e band of 8 pixels
+           bne .odd
+
+           lda #$55
+           sta PF0
+           sta PF2
+           lda #$aa
+           sta PF1
+           jmp .continue
+   .odd:
+           lda #$aa
+           sta PF0
+           sta PF2
+           lda #$55
+           sta PF1
+
+   .continue:
+           txa
+           bne .kernel_loop
+
+           ; Clear playfield
+           lda #$00
+           sta PF0
+           sta PF1
+           sta PF2
+           rts
+
+====
+
+The Grid
+........
+
+.. image:: pics/grid.png
+
+====
+
+Displaying a picture
+....................
+
+.. note::
+
+   Even with the constraints imposed by the Atari 2600, it is possible
+   to display nice pictures. These graphics can be done by graphic
+   artists using standard software (like gimp) then transformed to
+   assembly-friendly data using home-made conversion tools (usually
+   written in Python, Lua or even C depending on the preference of the
+   coder).
+
+   The graphic data generated can then be displayed on the screen by
+   loading the samples sequentially into the playfield registers in a
+   timely manner.
+
+====
+
+Picture data
+............
+
+====
+
+Picture code
+............
+
+====
+
+Music coding
 ------------
-
-Collaboration tools
--------------------
-
-Collaboration process
----------------------
 
 ====
 
