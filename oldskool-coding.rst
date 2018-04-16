@@ -1121,6 +1121,98 @@ Picture code
 Music coding
 ------------
 
+AUDF registers
+..............
+
+.. image:: pics/audf.png
+
+* one 5-bit register per channel
+
+* Sets the sound's frequency
+
+* 32 possible frequencies
+
+====
+
+AUDC registers
+..............
+
+.. image:: pics/audc.png
+
+* one 4-bit register per channel
+
+* Sets an additional frequency divider
+
+* Sets pure tone / polyphonic tone
+
+====
+
+AUDV registers
+..............
+
+.. image:: pics/audv.png
+
+* one 4-bit register per channel
+
+* Sets note volume (16 possible values)
+
+====
+
+Basic sound playing
+-------------------
+
+.. code::
+
+   fx_init:
+           ; (30KHz / 6) / 16 = 312.5 Hz i.e D#4
+           lda #$0c
+           sta AUDC0
+           lda #$10
+           sta AUDF0
+           lda #$04
+           sta AUDV0
+           rts
+
+====
+
+Sound control loop
+------------------
+
+.. code::
+
+   fx_vblank SUBROUTINE
+           inc frame_cnt
+           lda frame_cnt
+
+           ldx #4
+   .loop:
+           lsr
+           dex
+           bne .loop
+
+           sta AUDC0
+           rts
+
+====
+
+Sound frequency loop
+--------------------
+
+.. code::
+
+   fx_vblank SUBROUTINE
+           inc frame_cnt
+           lda frame_cnt
+
+           ldx #3
+   .loop:
+           lsr
+           dex
+           bne .loop
+
+           sta AUDF0
+           rts
+
 ====
 
 Atari VCS demos
