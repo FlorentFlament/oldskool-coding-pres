@@ -872,6 +872,10 @@ Minimal code
 
            jmp main_loop
 
+.. note::
+
+   210 sec -> 1555 sec
+
 ====
 
 VERTICAL_SYNC macro
@@ -911,6 +915,10 @@ VERTICAL_SYNC macro
 
            jmp main_loop
 
+.. note::
+
+   37 sec -> 1593 sec
+
 ====
 
 Blinking screen code
@@ -947,6 +955,10 @@ Blinking screen code
            sta WSYNC
            dex
            bne vblank_loop
+
+.. note::
+
+   236 sec -> 1829 sec
 
 ====
 
@@ -992,8 +1004,9 @@ Synchronizing using timer
    264 scanlines.
 
    What is the best granularity to use in this context ? The TIM64T
-   register allows waiting at most 64*256/76 = 215.6 scanlines, which
-   is not enough. The T1024T register allows waiting:
+   register (decremented every 64 clocks) allows waiting at most
+   64*256/76 = 215.6 scanlines, which is not enough. The T1024T
+   register (decremented every 1024 clocks) allows waiting:
 
    * 18*1024/76 = 242.5 lines
    * 19*1024/76 = 256 lines
@@ -1004,6 +1017,8 @@ Synchronizing using timer
    earlier. Once the timer has expired the CPU needs to wait for 8
    additional scanlines before sending the vertical synchronization
    signal.
+
+   154 sec -> 1983 sec
 
 ====
 
@@ -1054,6 +1069,10 @@ Framework using timer
            beq wait_timint
            rts
 
+.. note::
+
+   201 sec -> 2184 sec
+
 ====
 
 The playfield
@@ -1070,12 +1089,15 @@ The playfield
 .. note::
 
    Three 8-bit registers (PF0, PF1 and PF2) can be used to display a
-   "playfield". The first 4 bits of PF0 are actually taken into
-   account, together with the 8 bits of PF1 and PF2. This makes a
-   total of 20 bits describing a playfield line. The 20 playfield
-   bits, actually describe the first half of a line (i.e 20 large
-   pixels), which can then be either copied, or mirrorer on the second
-   half of the screen, depending on the CTRLPF register.
+   "playfield". The playfield registers have been designed to display
+   walls in games. They allow to draw graphics on the full screen,
+   though with a low resolution (up to 40 large pixels). The first 4
+   bits of PF0 are actually taken into account, together with the 8
+   bits of PF1 and PF2. This makes a total of 20 bits describing a
+   playfield line. The 20 playfield bits, actually describe the first
+   half of a line (i.e 20 large pixels), which can then be either
+   copied, or mirrorer on the second half of the screen, depending on
+   the CTRLPF register.
 
    It is actually possible to set 40 distinct pixels per line using
    the playfield registers, by updating them on the fly. The idea is
@@ -1086,6 +1108,7 @@ The playfield
    actually juggling with 3 registers, by updating their values twice
    per line.
 
+   90 sec -> 2274 sec
 
 ====
 
@@ -1127,6 +1150,10 @@ Basic procedural graphics
            sta PF2
            rts
 
+.. note::
+
+   286 sec -> 2560 sec
+
 ====
 
 The Grid
@@ -1154,12 +1181,23 @@ Displaying a picture using playfield
    loading the samples sequentially into the playfield registers in a
    timely manner.
 
+   43 sec -> 2603 sec
+
 ====
 
 Displaying a picture using sprites
 ..................................
 
 .. image:: pics/nolan.png
+
+.. note::
+
+   This picture has been rendered by using the sprites. They pixels
+   are thiner, but it can only be used to draw on a band of the
+   screen. It is not possible to display a fullscreen image with this
+   technique.
+
+   17 sec -> 2620 sec
 
 ====
 
@@ -1177,6 +1215,17 @@ AUDF registers
 
 * 32 possible frequencies
 
+.. note::
+
+   The AUDF0 and AUDF1 registers (for Audio Frequency) allow the set
+   the frequency (or note) of the sounds played on each channel. The 5
+   least significant bits of these registers are taken into account,
+   which means that we have up to 32 possible frequencies for a given
+   sound. With a base frequency of 30 KHz, the notes can vary between
+   937.5 Hz and 30 KHz.
+
+   34 sec -> 2654 sec
+
 ====
 
 AUDC registers
@@ -1190,6 +1239,16 @@ AUDC registers
 
 * Sets pure tone / polyphonic tone
 
+.. note::
+
+   The AUDC0 and AUDC1 registers (Audio Control) allow to specify the
+   type of the sound to be played. It can be a pure tone, a polyphonic
+   tone, or some kind of white noise. This registers also allows to
+   set an additional frequency divider (some sounds are higher that
+   others).
+
+   22 sec -> 2676 sec
+
 ====
 
 AUDV registers
@@ -1200,6 +1259,13 @@ AUDV registers
 * one 4-bit register per channel
 
 * Sets note volume (16 possible values)
+
+.. note::
+
+   AUDV0 and AUDV1 (Audio Volume) allow to set the volume of each
+   channel. There 16 possible levels.
+
+   13 sec -> 2689 sec
 
 ====
 
@@ -1215,8 +1281,13 @@ Basic sound playing
            lda #$10
            sta AUDF0
            lda #$04
+
            sta AUDV0
            rts
+
+.. note::
+
+   60 sec -> 2749 sec
 
 ====
 
@@ -1238,6 +1309,10 @@ Sound control loop
            sta AUDC0
            rts
 
+.. note::
+
+   120 sec -> 2869 sec
+
 ====
 
 Sound frequency loop
@@ -1257,6 +1332,10 @@ Sound frequency loop
 
            sta AUDF0
            rts
+
+.. note::
+
+   53 sec -> 2922 sec
 
 ====
 
@@ -1278,6 +1357,10 @@ Sound volume loop
            sta AUDV0
            rts
 
+.. note::
+
+   32 sec -> 2955 sec
+
 ====
 
 TIA Tracker
@@ -1288,6 +1371,18 @@ TIA Tracker
 * Can be used by a musician to create music
 
 * Generates assembly code to be played on the VCS
+
+.. note::
+
+   This was how the hardware is working. However, we are not
+   programming the sound directly anymore. A demoscener developped a
+   very friendly tool to do music on the Atari. This is called TIA
+   tracker, and it allows musicians to create music on the platform
+   without the need to write code. The tool is then able to generate
+   the data and the code that can be used directly in a demo or in a
+   program running on the Atari 2600.
+
+   31 sec -> 2986 sec
 
 ====
 
